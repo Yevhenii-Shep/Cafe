@@ -1,0 +1,19 @@
+Index: parts/header.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><section class=\"navbar custom-navbar navbar-fixed-top\" role=\"navigation\">\r\n    <div class=\"container\">\r\n\r\n        <div class=\"navbar-header\">\r\n            <button class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">\r\n                <span class=\"icon icon-bar\"></span>\r\n                <span class=\"icon icon-bar\"></span>\r\n                <span class=\"icon icon-bar\"></span>\r\n            </button>\r\n\r\n            <!-- lOGO TEXT HERE -->\r\n            <a href=\"index.html\" class=\"navbar-brand\">Eatery <span>.</span> Cafe</a>\r\n        </div>\r\n\r\n        <!-- MENU LINKS -->\r\n        <div class=\"collapse navbar-collapse\">\r\n            <ul class=\"nav navbar-nav navbar-nav-first\">\r\n                <li><a href=\"#home\" class=\"smoothScroll\">Home</a></li>\r\n                <li><a href=\"#about\" class=\"smoothScroll\">About</a></li>\r\n                <li><a href=\"#team\" class=\"smoothScroll\">Chef</a></li>\r\n                <li><a href=\"#menu\" class=\"smoothScroll\">Menu</a></li>\r\n                <li><a href=\"#contact\" class=\"smoothScroll\">Contact</a></li>\r\n            </ul>\r\n\r\n            <ul class=\"nav navbar-nav navbar-right\">\r\n                <li><a href=\"#\">Call Now! <i class=\"fa fa-phone\"></i> 010 020 0340</a></li>\r\n                <a href=\"#reserve\" class=\"section-btn\">Reserve a table</a>\r\n            </ul>\r\n        </div>\r\n\r\n    </div>\r\n</section>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/parts/header.php b/parts/header.php
+--- a/parts/header.php	(revision a3bc0dae70bd45da414f57022639243fc5cedda5)
++++ b/parts/header.php	(date 1749561308705)
+@@ -19,7 +19,7 @@
+                 <li><a href="#about" class="smoothScroll">About</a></li>
+                 <li><a href="#team" class="smoothScroll">Chef</a></li>
+                 <li><a href="#menu" class="smoothScroll">Menu</a></li>
+-                <li><a href="#contact" class="smoothScroll">Contact</a></li>
++                <li><a href="#footer" class="smoothScroll">Contact</a></li>
+             </ul>
+ 
+             <ul class="nav navbar-nav navbar-right">
