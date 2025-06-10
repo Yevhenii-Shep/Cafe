@@ -16,7 +16,7 @@
             <div class="col-md-3 col-sm-8">
                 <div class="footer-info">
                     <div class="section-title">
-                        <h2 class="wow fadeInUp" data-wow-delay="0.2s">Reservation</h2>
+                        <h2 class="wow fadeInUp" data-wow-delay="0.2s">Contact us</h2>
                     </div>
                     <address class="wow fadeInUp" data-wow-delay="0.4s">
                         <p>090-080-0650 | 090-070-0430</p>

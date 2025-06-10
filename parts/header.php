@@ -19,12 +19,12 @@
                 <li><a href="#about" class="smoothScroll">About</a></li>
                 <li><a href="#team" class="smoothScroll">Chef</a></li>
                 <li><a href="#menu" class="smoothScroll">Menu</a></li>
-                <li><a href="#contact" class="smoothScroll">Contact</a></li>
+                <li><a href="#footer" class="smoothScroll">Contact</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Call Now! <i class="fa fa-phone"></i> 010 020 0340</a></li>
-                <a href="#footer" class="section-btn">Reserve a table</a>
+                <a href="#reserve" class="section-btn">Reserve a table</a>
             </ul>
         </div>
 

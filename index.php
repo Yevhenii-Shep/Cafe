@@ -23,6 +23,7 @@ http://www.templatemo.com/tm-515-eatery
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
      <link rel="stylesheet" href="css/magnific-popup.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/templatemo-style.css">
@@ -376,7 +377,7 @@ http://www.templatemo.com/tm-515-eatery
 
 
      <!-- CONTACT -->
-     <section id="contact" data-stellar-background-ratio="0.5">
+     <section id="reserve" data-stellar-background-ratio="0.5">
           <div class="container">
                <div class="row">
 	<!-- How to change your own map point
@@ -395,35 +396,91 @@ http://www.templatemo.com/tm-515-eatery
 
                          <div class="col-md-12 col-sm-12">
                               <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                                   <h2>Contact Us</h2>
+                                   <h2>Reserve a table</h2>
                               </div>
                          </div>
 
-                         <!-- CONTACT FORM -->
-                         <form action="#" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
+                         <!-- RESERVE FORM -->
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-                              <!-- IF MAIL SENT SUCCESSFUL  // connect this with custom JS -->
-                              <h6 class="text-success">Your message has been sent successfully.</h6>
-                              
-                              <!-- IF MAIL NOT SENT -->
-                              <h6 class="text-danger">E-mail must be valid and message must be longer than 1 character.</h6>
+                        <form action="#" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
 
-                              <div class="col-md-6 col-sm-6">
-                                   <input type="text" class="form-control" id="cf-name" name="name" placeholder="Full name">
-                              </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 mb-4">
+                                    <input type="text" class="form-control" id="meno" name="meno" placeholder="First name">
+                                </div>
 
-                              <div class="col-md-6 col-sm-6">
-                                   <input type="email" class="form-control" id="cf-email" name="email" placeholder="Email address">
-                              </div>
+                                <div class="col-md-6 col-sm-6 mb-4">
+                                    <input type="text" class="form-control" id="priezviesko" name="priezviesko" placeholder="Second name">
+                                </div>
+                            </div>
 
-                              <div class="col-md-12 col-sm-12">
-                                   <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 mb-4">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address">
+                                </div>
 
-                                   <textarea class="form-control" rows="6" id="cf-message" name="message" placeholder="Tell about your project"></textarea>
+                                <div class="col-md-6 col-sm-6 mb-4">
+                                    <input type="tel" class="form-control" id="telefonne_cislo" name="telefonne_cislo"
+                                           pattern="^\+421\s?\d{3}\s?\d{3}\s?\d{3}$" placeholder="Slovakian phone number" required>
+                                </div>
+                            </div>
 
-                                   <button type="submit" class="form-control" id="cf-submit" name="submit">Send Message</button>
-                              </div>
-                         </form>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 mb-4">
+                                    <input type="text" id="datetime" name="datetime" class="form-control" placeholder="Select date and time">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <button type="submit" class="form-control btn btn-danger" id="cf-submit" name="submit">Reserve</button>
+                                </div>
+                            </div>
+                            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+                            <!-- DATETIME script -->
+                            <script>
+                                flatpickr("#datetime", {
+                                    enableTime: true,
+                                    dateFormat: "Y-m-d H:i",
+                                    time_24hr: true,
+                                    minDate: "today",
+                                    disable: [
+                                        function(date) {
+                                            return (date.getDay() === 1); // Monday closed
+                                        }
+                                    ],
+                                    onReady: limitTime,
+                                    onChange: limitTime,
+                                    onMonthChange: limitTime
+                                });
+
+                                function limitTime(selectedDates, dateStr, instance) {
+                                    const now = new Date();
+                                    const selectedDate = selectedDates[0] || now;
+                                    const day = selectedDate.getDay();
+
+
+                                    const isToday = selectedDate.toDateString() === now.toDateString();
+
+                                    if (day >= 2 && day <= 5) {
+                                        instance.set("minTime", isToday ? now.getHours() + ":" + now.getMinutes() : "07:00");
+                                        instance.set("maxTime", "20:00");
+                                    } else if (day === 6 || day === 0) {
+                                        instance.set("minTime", isToday ? now.getHours() + ":" + now.getMinutes() : "11:00");
+                                        instance.set("maxTime", "21:00");
+                                    } else {
+                                        instance.set("minTime", null);
+                                        instance.set("maxTime", null);
+                                    }
+                                }
+                            </script>
+
+                            </script>
+
+
+                        </form>
                     </div>
 
                </div>
