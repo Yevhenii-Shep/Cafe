@@ -403,32 +403,32 @@ http://www.templatemo.com/tm-515-eatery
                          <!-- RESERVE FORM -->
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-                        <form action="#" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
+                        <form action="/Cafe/databaze/reservacia.php" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
 
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 mb-4">
-                                    <input type="text" class="form-control" id="meno" name="meno" placeholder="First name">
+                                    <input type="text" class="form-control" id="meno" name="meno" placeholder="First name" required>
                                 </div>
 
                                 <div class="col-md-6 col-sm-6 mb-4">
-                                    <input type="text" class="form-control" id="priezviesko" name="priezviesko" placeholder="Second name">
+                                    <input type="text" class="form-control" id="priezviesko" name="priezviesko" placeholder="Second name" required>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 mb-4">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
                                 </div>
 
                                 <div class="col-md-6 col-sm-6 mb-4">
                                     <input type="tel" class="form-control" id="telefonne_cislo" name="telefonne_cislo"
-                                           pattern="^\+421\s?\d{3}\s?\d{3}\s?\d{3}$" placeholder="Slovakian phone number" required>
+                                           pattern="^\421\s?\d{3}\s?\d{3}\s?\d{3}$|^\+421\d{9}$" placeholder="Slovakian phone number" required>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 mb-4">
-                                    <input type="text" id="datetime" name="datetime" class="form-control" placeholder="Select date and time">
+                                    <input type="text" id="datetime" name="datetime" class="form-control" placeholder="Select date and time" required>
                                 </div>
                             </div>
 
