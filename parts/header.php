@@ -8,11 +8,11 @@
                 <span class="icon icon-bar"></span>
             </button>
 
-            <!-- lOGO TEXT HERE -->
-            <a href="index.html" class="navbar-brand">Eatery <span>.</span> Cafe</a>
+            <!-- Logo text here -->
+            <a href="index.php" class="navbar-brand">Eatery <span>.</span> Cafe</a>
         </div>
 
-        <!-- MENU LINKS -->
+        <!-- Menu links -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-nav-first">
                 <li><a href="#home" class="smoothScroll">Home</a></li>

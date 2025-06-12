@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="199cd4bb-fcaa-450e-b8ba-cd39514ce948" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/databaze/reservacia.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/databaze/reservacia-handler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databaze/reservacia.php" beforeDir="false" afterPath="$PROJECT_DIR$/databaze/reservacia.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parts/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/parts/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parts/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/parts/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/contact.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +43,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;pripojenie__db&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;CRUD&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/Cafe&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -83,7 +88,10 @@
       <workItem from="1749579829661" duration="125000" />
       <workItem from="1749580726597" duration="2092000" />
       <workItem from="1749583561225" duration="4238000" />
-      <workItem from="1749619506903" duration="8077000" />
+      <workItem from="1749619506903" duration="10330000" />
+      <workItem from="1749671854501" duration="4315000" />
+      <workItem from="1749716289904" duration="4272000" />
+      <workItem from="1749730621318" duration="20370000" />
     </task>
     <servers />
   </component>

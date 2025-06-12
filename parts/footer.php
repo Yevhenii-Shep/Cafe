@@ -1,10 +1,10 @@
 <footer id="footer" data-stellar-background-ratio="0.5">
     <div class="container">
-        <div class="row">
+        <div class="row g-4">
 
-            <div class="col-md-3 col-sm-8">
+            <div class="col-md-3 col-sm-6">
                 <div class="footer-info">
-                    <div class="section-title">
+                    <div class="section-title mb-3">
                         <h2 class="wow fadeInUp" data-wow-delay="0.2s">Find us</h2>
                     </div>
                     <address class="wow fadeInUp" data-wow-delay="0.4s">
@@ -13,9 +13,9 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-8">
+            <div class="col-md-3 col-sm-6">
                 <div class="footer-info">
-                    <div class="section-title">
+                    <div class="section-title mb-3">
                         <h2 class="wow fadeInUp" data-wow-delay="0.2s">Contact us</h2>
                     </div>
                     <address class="wow fadeInUp" data-wow-delay="0.4s">
@@ -26,9 +26,9 @@
                 </div>
             </div>
 
-            <div class="col-md-4 col-sm-8">
+            <div class="col-md-4 col-sm-12" >
                 <div class="footer-info footer-open-hour">
-                    <div class="section-title">
+                    <div class="section-title mb-3">
                         <h2 class="wow fadeInUp" data-wow-delay="0.2s">Open Hours</h2>
                     </div>
                     <div class="wow fadeInUp" data-wow-delay="0.4s">
@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2 col-sm-4">
+            <div class="col-md-2 col-sm-12 text-mb-start text-center">
                 <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
                     <li><a href="#" class="fa fa-facebook-square" attr="facebook icon"></a></li>
                     <li><a href="#" class="fa fa-twitter"></a></li>

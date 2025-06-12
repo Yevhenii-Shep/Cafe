@@ -1,63 +1,66 @@
 <?php
-$host = "localhost";
-$dbname = "cafe_db";
-$port = "3306";
-$user = "root";
-$password = "";
+// Connect to database
+function getPDO() {
+    $host = "localhost";
+    $dbname = "cafe_db";
+    $port = "3306";
+    $user = "root";
+    $password = "";
 
-$options = array(
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-);
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ];
 
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $user, $password, $options);
-} catch (PDOException $e) {
-    die("Chyba pripojenia: " . $e->getMessage());
+    try {
+        return new PDO("mysql:host=$host;dbname=$dbname;port=$port", $user, $password, $options);
+    } catch (PDOException $e) {
+        die("Chyba pripojenia: " . $e->getMessage());
+    }
 }
 
-// ziskanie dat z formulara
-$meno = $_POST["meno"] ?? '';
-$priezviesko = $_POST["priezviesko"] ?? '';
-$email = $_POST["email"] ?? '';
-$telefon = $_POST["telefonne_cislo"] ?? '';
-$datetime = $_POST["datetime"] ?? '';
+// Add new reservation
+function addReservation($data) {
+    $conn = getPDO();
 
-// kontrola povinných polí
-if (empty($meno) || empty($priezviesko) || empty($email) || empty($telefon) || empty($datetime)) {
-    echo "<script>
-            alert('You must fill in all fields.');
-            window.history.back();
-          </script>";
-    exit;
-}
-
-// vloženie dát
-$sql = "INSERT INTO rezervacia (Meno, Priezviesko, Email, telefonne_cislo, Datum) 
-        VALUES (:meno, :priezviesko, :email, :telefon, :datetime)";
-$statement = $conn->prepare($sql);
-
-try {
-    $insert = $statement->execute([
-        ':meno' => $meno,
-        ':priezviesko' => $priezviesko,
-        ':email' => $email,
-        ':telefon' => $telefon,
-        ':datetime' => $datetime
+    $stmt = $conn->prepare("INSERT INTO rezervacia (Meno, Priezviesko, Email, telefonne_cislo, Datum)
+                            VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([
+        $data['meno'],
+        $data['priezviesko'],
+        $data['email'],
+        $data['telefonne_cislo'],
+        $data['datetime']
     ]);
-
-    echo "<script>
-            alert('We are waiting for you in our cafe');
-            window.location.href = document.referrer;
-          </script>";
-    exit;
-} catch (Exception $exception) {
-    echo "<script>
-            alert('Error with save tour data: " . addslashes($exception->getMessage()) . "');
-            window.history.back();
-          </script>";
-    exit;
 }
 
-$conn = null;
+// Check reservation in database dor email
+function getReservationsByEmail($email) {
+    $conn = getPDO();
+    $stmt = $conn->prepare("SELECT * FROM rezervacia WHERE Email = ? ORDER BY Datum DESC");
+    $stmt->execute([$email]);
+    return $stmt->fetchAll();
+}
+
+// Delete reservation for current ID
+function deleteReservation($id) {
+    $conn = getPDO();
+    $stmt = $conn->prepare("DELETE FROM rezervacia WHERE id = ?");
+    $stmt->execute([$id]);
+}
+
+// Change reservation
+function updateReservation($id, $newDatetime) {
+    $conn = getPDO();
+    $stmt = $conn->prepare("UPDATE rezervacia SET Datum = ? WHERE id = ?");
+    $stmt->execute([$newDatetime, $id]);
+}
+
+// Check reservation in database for email
+function reservationExists($email) {
+    $conn = getPDO();
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM rezervacia WHERE Email = ?");
+    $stmt->execute([$email]);
+    return $stmt->fetchColumn() > 0;
+}
 ?>
