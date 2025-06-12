@@ -23,8 +23,10 @@ http://www.templatemo.com/tm-515-eatery
      <link rel="stylesheet" href="css/owl.carousel.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
      <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-     <!-- MAIN CSS -->
+
+    <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/templatemo-style.css">
 
 </head>
@@ -82,7 +84,7 @@ http://www.templatemo.com/tm-515-eatery
                                         <div class="col-md-8 col-sm-12">
                                              <h3>New Restaurant in Town</h3>
                                              <h1>Enjoy our special menus every Sunday and Friday</h1>
-                                             <a href="#contact" class="section-btn btn btn-default smoothScroll">Reservation</a>
+                                             <a href="#reserve" class="section-btn btn btn-default smoothScroll">Reservation</a>
                                         </div>
                                    </div>
                               </div>
@@ -372,63 +374,151 @@ http://www.templatemo.com/tm-515-eatery
 
                </div>
           </div>
-     </section>  
+     </section>
 
+     <!-- Reservation -->
+     <section id="reserve" data-stellar-background-ratio="0.5">
 
-     <!-- CONTACT -->
-     <section id="contact" data-stellar-background-ratio="0.5">
-          <div class="container">
-               <div class="row">
-	<!-- How to change your own map point
-            1. Go to Google Maps
-            2. Click on your location point
-            3. Click "Share" and choose "Embed map" tab
-            4. Copy only URL and paste it within the src="" field below
-	-->
-                    <div class="wow fadeInUp col-md-6 col-sm-12" data-wow-delay="0.4s">
-                         <div id="google-map">
-                              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945" allowfullscreen></iframe>
+                 <!-- Read email-->
+                 <?php
+                 require_once 'databaze/reservacia.php';
+
+                 $email = $_GET['email'] ?? '';
+                 $reservations = [];
+
+                 if (!empty($email)) {
+                     $reservations = getReservationsByEmail($email);
+                 }
+                 ?>
+                 <div class="col-md-12 col-sm-12">
+                     <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
+                         <h2>Reserve a table</h2>
+                     </div>
+                    <!--Show reservation-->
+                     <?php if ($reservations): ?>
+                         <h4 class="mt-4">Your`s rezervations</h4>
+                         <ul class="list-group mb-4">
+                             <?php foreach ($reservations as $r): ?>
+                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                                     <div>
+                                         <?= htmlspecialchars($r['Meno'] . ' ' . $r['Priezviesko']) ?><br>
+                                         <small><?= htmlspecialchars($r['Datum']) ?></small>
+                                     </div>
+                                     <!-- Delete reservation-->
+                                     <div>
+                                         <form action="databaze/reservacia-handler.php" method="GET" class="d-inline">
+                                             <input type="hidden" name="delete_id" value="<?= $r['id'] ?>">
+                                             <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
+                                             <button class="btn btn-danger btn-sm">Delete</button>
+                                         </form>
+                                         <button class="btn btn-primary btn-sm edit-btn"
+                                                 data-id="<?= $r['id'] ?>"
+                                                 data-datetime="<?= htmlspecialchars($r['Datum']) ?>">
+                                             Edit
+                                         </button>
+                                     </div>
+                                 </li>
+                             <?php endforeach; ?>
+                         </ul>
+                     <?php endif; ?>
+                        <!-- New reservation-->
+                     <form action="databaze/reservacia-handler.php" method="POST">
+                         <div class="form-row">
+                             <div class="form-group col-md-12">
+                                 <input type="text" name="meno" class="form-control" placeholder="Name" required>
+                             </div>
+                             <div class="form-group col-md-12">
+                                 <input type="text" name="priezviesko" class="form-control" placeholder="Surname" required>
+                             </div>
                          </div>
-                    </div>    
-
-                    <div class="col-md-6 col-sm-12">
-
-                         <div class="col-md-12 col-sm-12">
-                              <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
-                                   <h2>Contact Us</h2>
-                              </div>
+                         <div class="form-row">
+                             <div class="form-group col-md-12">
+                                 <input type="email" name="email" class="form-control" placeholder="Email" required value="<?= htmlspecialchars($email) ?>">
+                             </div>
+                             <div class="form-group col-md-12">
+                                 <input type="tel" name="telefonne_cislo" class="form-control" placeholder="Telefon number" required>
+                             </div>
                          </div>
+                         <div class="form-group col-md-12">
+                             <input type="text" id="datetime" name="datetime" class="form-control" placeholder="Choose date and time" required>
+                         </div>
+                         <button type="submit" class="btn btn-success">Confirm and reserve</button>
+                     </form>
+                 </div>
 
-                         <!-- CONTACT FORM -->
-                         <form action="#" method="post" class="wow fadeInUp" id="contact-form" role="form" data-wow-delay="0.8s">
-
-                              <!-- IF MAIL SENT SUCCESSFUL  // connect this with custom JS -->
-                              <h6 class="text-success">Your message has been sent successfully.</h6>
-                              
-                              <!-- IF MAIL NOT SENT -->
-                              <h6 class="text-danger">E-mail must be valid and message must be longer than 1 character.</h6>
-
-                              <div class="col-md-6 col-sm-6">
-                                   <input type="text" class="form-control" id="cf-name" name="name" placeholder="Full name">
-                              </div>
-
-                              <div class="col-md-6 col-sm-6">
-                                   <input type="email" class="form-control" id="cf-email" name="email" placeholder="Email address">
-                              </div>
-
-                              <div class="col-md-12 col-sm-12">
-                                   <input type="text" class="form-control" id="cf-subject" name="subject" placeholder="Subject">
-
-                                   <textarea class="form-control" rows="6" id="cf-message" name="message" placeholder="Tell about your project"></textarea>
-
-                                   <button type="submit" class="form-control" id="cf-submit" name="submit">Send Message</button>
-                              </div>
+                 <!-- Change date for reservation -->
+                 <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+                     <div class="modal-dialog" role="document">
+                         <form method="POST" action="databaze/reservacia-handler.php" class="modal-content">
+                             <div class="modal-header">
+                                 <h5 class="modal-title">Edit reservation</h5>
+                                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                             </div>
+                             <div class="modal-body">
+                                 <input type="hidden" name="update_id" id="update_id">
+                                 <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
+                                 <label>Nový dátum a čas</label>
+                                 <input type="text" class="form-control" name="new_datetime" id="new_datetime" required>
+                             </div>
+                             <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px;">
+                                 <button class="btn btn-secondary " data-dismiss="modal">Cancel</button>
+                                 <button class="btn btn-primary">Save</button>
+                             </div>
                          </form>
-                    </div>
+                     </div>
+                 </div>
 
-               </div>
-          </div>
-     </section>          
+                 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+                 <!-- Date choose-->
+                  <script>
+                     function limitTime(selectedDates, dateStr, instance) {
+                         const now = new Date();
+                         const selectedDate = selectedDates[0] || now;
+                         const day = selectedDate.getDay();
+
+                         const isToday = selectedDate.toDateString() === now.toDateString();
+                         const currentTime = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+
+                         if (day >= 2 && day <= 5) {
+                             instance.set("minTime", isToday ? currentTime : "07:00");
+                             instance.set("maxTime", "20:00");
+                         } else if (day === 6 || day === 0) {
+                             instance.set("minTime", isToday ? currentTime : "11:00");
+                             instance.set("maxTime", "21:00");
+                         } else {
+                             instance.set("minTime", null);
+                             instance.set("maxTime", null);
+                         }
+                     }
+
+                     const config = {
+                         enableTime: true,
+                         dateFormat: "Y-m-d H:i",
+                         time_24hr: true,
+                         minDate: "today",
+                         disable: [
+                             function(date) {
+                                 return (date.getDay() === 1); // Closed on Mondays
+                             }
+                         ],
+                         onReady: limitTime,
+                         onChange: limitTime,
+                         onMonthChange: limitTime
+                     };
+
+                     const mainPicker = flatpickr("#datetime", config);
+                     const editPicker = flatpickr("#new_datetime", config);
+
+                     $('.edit-btn').click(function () {
+                         $('#update_id').val($(this).data('id'));
+                         editPicker.setDate($(this).data('datetime'), true);
+                         $('#editModal').modal('show');
+                     });
+                 </script>
+
+
 
 
      <!-- FOOTER -->
