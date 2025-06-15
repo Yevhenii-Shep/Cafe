@@ -377,26 +377,31 @@ http://www.templatemo.com/tm-515-eatery
      </section>
 
      <!-- Reservation -->
-     <section id="reserve" data-stellar-background-ratio="0.5">
-
-                 <!-- Read email-->
                  <?php
-                 require_once 'databaze/reservacia.php';
+
+                 ini_set('display_errors', 1);
+                 ini_set('display_startup_errors', 1);
+                 error_reporting(E_ALL);
+
+                 require_once 'databaze/Database.php';
+                 require_once 'databaze/ReservationManager.php';
 
                  $email = $_GET['email'] ?? '';
                  $reservations = [];
 
                  if (!empty($email)) {
-                     $reservations = getReservationsByEmail($email);
+                     $manager = new ReservationManager(new Database());
+                     $reservations = $manager->getReservationsByEmail($email);
                  }
                  ?>
+         <section id="reserve" data-stellar-background-ratio="0.5">
                  <div class="col-md-12 col-sm-12">
                      <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
                          <h2>Reserve a table</h2>
                      </div>
-                    <!--Show reservation-->
+
                      <?php if ($reservations): ?>
-                         <h4 class="mt-4">Your`s rezervations</h4>
+                         <h4 class="mt-4">Your reservations</h4>
                          <ul class="list-group mb-4">
                              <?php foreach ($reservations as $r): ?>
                                  <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -404,9 +409,8 @@ http://www.templatemo.com/tm-515-eatery
                                          <?= htmlspecialchars($r['Meno'] . ' ' . $r['Priezviesko']) ?><br>
                                          <small><?= htmlspecialchars($r['Datum']) ?></small>
                                      </div>
-                                     <!-- Delete reservation-->
                                      <div>
-                                         <form action="databaze/reservacia-handler.php" method="GET" class="d-inline">
+                                         <form action="databaze/ReservationController.php" method="POST" class="d-inline">
                                              <input type="hidden" name="delete_id" value="<?= $r['id'] ?>">
                                              <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
                                              <button class="btn btn-danger btn-sm">Delete</button>
@@ -421,8 +425,9 @@ http://www.templatemo.com/tm-515-eatery
                              <?php endforeach; ?>
                          </ul>
                      <?php endif; ?>
-                        <!-- New reservation-->
-                     <form action="databaze/reservacia-handler.php" method="POST">
+
+                     <!-- New reservation form -->
+                     <form action="databaze/ReservationController.php" method="POST">
                          <div class="form-row">
                              <div class="form-group col-md-12">
                                  <input type="text" name="meno" class="form-control" placeholder="Name" required>
@@ -436,7 +441,7 @@ http://www.templatemo.com/tm-515-eatery
                                  <input type="email" name="email" class="form-control" placeholder="Email" required value="<?= htmlspecialchars($email) ?>">
                              </div>
                              <div class="form-group col-md-12">
-                                 <input type="tel" name="telefonne_cislo" class="form-control" placeholder="Telefon number" required>
+                                 <input type="tel" name="telefonne_cislo" class="form-control" placeholder="Phone number" required>
                              </div>
                          </div>
                          <div class="form-group col-md-12">
@@ -449,7 +454,7 @@ http://www.templatemo.com/tm-515-eatery
                  <!-- Change date for reservation -->
                  <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
                      <div class="modal-dialog" role="document">
-                         <form method="POST" action="databaze/reservacia-handler.php" class="modal-content">
+                         <form method="POST" action="databaze/ReservationController.php" class="modal-content">
                              <div class="modal-header">
                                  <h5 class="modal-title">Edit reservation</h5>
                                  <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
