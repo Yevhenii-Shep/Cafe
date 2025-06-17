@@ -18,16 +18,17 @@ class ReservationController
 
     public function handleRequest()
     {
+        var_dump($_POST); // Додай сюди
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['meno'])) {
-            $this->createReservation();
+            $this->addReservation();
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_id'])) {
             $this->updateReservation();
-        } elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
             $this->deleteReservation();
         }
     }
 
-    private function createReservation()
+    private function addReservation()
     {
         $data = [
             'meno' => $_POST['meno'] ?? '',
@@ -35,8 +36,19 @@ class ReservationController
             'email' => $_POST['email'] ?? '',
             'telefonne_cislo' => $_POST['telefonne_cislo'] ?? '',
             'datetime' => $_POST['datetime'] ?? '',
+             'table_id' => (int) ($_POST['table_id'] ?? 0)
         ];
+        $timestamp = strtotime($data['datetime']);
+        $oneHourBefore = date('Y-m-d H:i:s', $timestamp - 3600);
+        $oneHourAfter  = date('Y-m-d H:i:s', $timestamp + 3600);
 
+        
+        if ($this->manager->isTableReserved($data['table_id'], $oneHourBefore, $oneHourAfter)) {
+            echo "<script>alert('On this time table already reservated'); window.history.back();</script>";
+            exit;
+        }
+
+        
         foreach ($data as $value) {
             if (empty($value)) {
                 echo "<script>alert('All fields are required'); window.history.back();</script>";
@@ -56,11 +68,14 @@ class ReservationController
 
     private function deleteReservation()
     {
-        $id = (int) ($_GET['delete_id'] ?? 0);
+         echo "<pre>DELETE REQUEST RECEIVED\n"; // Додай це
+        $id = (int) ($_POST['delete_id'] ?? 0);
+        echo "ID to delete: $id\n";          // delete this
         if ($id > 0) {
             $this->manager->deleteReservation($id);
+             echo "Reservation deleted\n";       // І це
         }
-        $email = $_GET['email'] ?? '';
+        $email = $_POST['email'] ?? '';
         header("Location: ../index.php?email=" . urlencode($email));
         exit;
     }

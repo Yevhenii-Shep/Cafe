@@ -399,6 +399,9 @@ http://www.templatemo.com/tm-515-eatery
                      <div class="section-title wow fadeInUp" data-wow-delay="0.1s">
                          <h2>Reserve a table</h2>
                      </div>
+          <object type="image/svg+xml" data="tables/tables.svg"></object>
+
+
 
                      <?php if ($reservations): ?>
                          <h4 class="mt-4">Your reservations</h4>
@@ -447,10 +450,17 @@ http://www.templatemo.com/tm-515-eatery
                          <div class="form-group col-md-12">
                              <input type="text" id="datetime" name="datetime" class="form-control" placeholder="Choose date and time" required>
                          </div>
+                         <label for="table_id">Choose table:</label>
+                         <select name="table_id" required>
+                         <option value="">Select table</option>
+                         <?php for ($i = 1; $i <= 8; $i++): ?>
+                         <option value="<?= $i ?>">Table <?= $i ?></option>
+                         <?php endfor; ?>
+                         </select>
                          <button type="submit" class="btn btn-success">Confirm and reserve</button>
                      </form>
                  </div>
-
+                 
                  <!-- Change date for reservation -->
                  <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
                      <div class="modal-dialog" role="document">
